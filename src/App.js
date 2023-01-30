@@ -1,25 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 
-function App() {
-  const [text, setText] = useState('');
+function App({ value, onChange }) {
+  const [text, setText] = useState(value);
 
-  // Use memoization to determine if the input is a valid number
-  const isValidNumber = useMemo(() => {
-    const regEx = /^\d+$/;
-    return regEx.test(text);
+  const isValid = useMemo(() => {
+    return /^\d+$/.test(text);
   }, [text]);
 
   return (
     <div>
-      <input
-        type="text"
-        value={text}
-        onChange={e => setText(e.target.value)}
-      />
-      <i
-        className={`fa ${isValidNumber ? 'fa-check' : 'fa-times'}`}
-        style={{ marginLeft: '10px' }}
-      />
+      <input type="text" value={text} onChange={(e) => setText(e.target.value)} />
+      <i className={`fa ${isValid ? "fa-check" : "fa-times"}`} />
     </div>
   );
 }
